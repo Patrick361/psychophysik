@@ -1,2 +1,15 @@
-npm init -y
-npm install @supabase/supabase-js
+{
+  "name": "psychophysik",
+  "version": "1.0.0",
+  "description": "A description of your project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^1.28.0"
+  },
+  "devDependencies": {},
+  "author": "",
+  "license": "MIT"
+}

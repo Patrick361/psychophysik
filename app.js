@@ -68,6 +68,13 @@ function startQuiz() {
     showImage();
 }
 
+const images = [
+    'LightAndSquare0121.png',
+    'LightAndSquare0114.png',
+    'LightAndSquare0109.png',
+    'LightAndSquare0105.png',
+    // Add more images as needed
+];
 // Show current image
 function showImage() {
     if (currentImageIndex >= images.length) {

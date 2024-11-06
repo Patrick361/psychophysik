@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="start-screen" class="screen">
+        <h1>Welcome! Please enter your name</h1>
+        <input type="text" id="name-input" placeholder="Enter your name">
+        <button onclick="startQuiz()">Start</button>
+    </div>
+
+    <div id="quiz-screen" class="screen" style="display: none;">
+        <h2 id="user-name"></h2>
+        <img id="image" src="" alt="Image" width="300">
+        <div>
+            <button onclick="answer('yes')">Yes</button>
+            <button onclick="answer('no')">No</button>
+        </div>
+    </div>
+
+    <div id="finished-screen" class="screen" style="display: none;">
+        <h1>Congratulations, you are finished!</h1>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

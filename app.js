@@ -1,3 +1,6 @@
+import createClient from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+
 // Array of images
 const images = [
     'LightAndSquare0121.png',

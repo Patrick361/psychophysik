@@ -1,25 +1,17 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-
-// Array of images
-const images = [
-    'LightAndSquare0121.png',
-    'LightAndSquare0114.png',
-    'LightAndSquare0109.png',
-    'LightAndSquare0105.png',
-];
-
-let currentImageIndex = 0;
-let userName = '';  // Global variable for user name
-let userResponses = [];  // This will store the user's boolean answers
-
 // Initialize Supabase client
 const SUPABASE_URL = "https://rzmrgpjrsgilyzobxqgq.supabase.co";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";  // Replace with your actual key
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6bXJncGpyc2dpbHl6b2J4cWdxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA5MTAyMjQsImV4cCI6MjA0NjQ4NjIyNH0.xL7o-2IqAbUUr7lpVOmNhUgXUMREtRa6q9gyWVb5i60";
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// The rest of your code
+let userName = '';  // Global variable for user name
+let currentImageIndex = 0; // Image index tracker
+let userResponses = [];  // This will store the user's boolean answers
 
 // Start the quiz after entering the name
-window.startQuiz = startQuiz;
 function startQuiz() {
     userName = document.getElementById('name-input').value;
     if (!userName) {
@@ -54,25 +46,25 @@ function showImage() {
 // Handle user answer
 document.getElementById('yesButton').addEventListener('click', () => {
     userResponses.push(true);  // 'Yes' is true
-    currentImageIndex++;
+    currentImageIndex++;  // Move to next image
     showImage();
 });
 
 document.getElementById('noButton').addEventListener('click', () => {
     userResponses.push(false); // 'No' is false
-    currentImageIndex++;
+    currentImageIndex++;  // Move to next image
     showImage();
 });
 
 // Function to submit the data when the user finishes
 async function submitData() {
     const { data, error } = await supabase
-        .from('userdata') 
+        .from('userdata')  // Ensure 'responses' is your table name in Supabase
         .insert([
             {
                 name: userName,
-                responses: userResponses,  
-                time: new Date() 
+                responses: userResponses,  // The responses as an array of booleans
+                time: new Date()  // Add timestamp
             },
         ]);
 

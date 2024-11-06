@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Psychophysik Studie</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.supabase.io/js/supabase.min.js"></script>
+    <!-- Use the latest Supabase library version -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.0.0/dist/umd/supabase.min.js"></script>
 </head>
 <body>
     <div id="start-screen" class="screen">
-        <h1>Wilkommen! Bitte geb deinen Namen ein</h1>
+        <h1>Wilkommen! Bitte gib deinen Namen ein</h1>
         <input type="text" id="name-input" placeholder="Enter your name">
         <button onclick="startQuiz()">Start</button>
     </div>
@@ -28,6 +29,5 @@
     </div>
 
     <script src="app.js"></script>
-
 </body>
 </html>

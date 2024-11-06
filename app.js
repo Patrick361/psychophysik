@@ -2,14 +2,51 @@ import createClient from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+es
 
 // Initialize Supabase client
 const SUPABASE_URL = "https://rzmrgpjrsgilyzobxqgq.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6bXJncGpyc2dpbHl6b2J4cWdxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA5MTAyMjQsImV4cCI6MjA0NjQ4NjIyNH0.xL7o-2IqAbUUr7lpVOmNhUgXUMREtRa6q9gyWVb5i60";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6bXJncGpyc2dpbHl6b2J4cWdxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA5MTAyMjQsImV4cCI6MjA0NjQ4NjIyNH0.xL7o-2IqAbUUr7lpVOmNhUgXUMREtRa6q9gyWVb5i60";  // Replace with your actual anon key
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// The rest of your code
-let userName = '';  // Global variable for user name
-let currentImageIndex = 0; // Image index tracker
-let userResponses = [];  // This will store the user's boolean answers
+// Check if supabase is initialized properly
+console.log(supabase);
+
+// Global variables
+let userName = '';  
+let currentImageIndex = 0;
+let userResponses = [];
+
+// Wait until the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', function () {
+    // Get references to DOM elements
+    const startButton = document.getElementById('start-button');
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+
+    // Check if buttons exist
+    if (!startButton || !yesButton || !noButton) {
+        console.error('Button elements are missing');
+        return;
+    }
+
+    // Start quiz event listener
+    startButton.addEventListener('click', startQuiz);
+
+    // Answer event listeners
+    yesButton.addEventListener('click', () => {
+        userResponses.push(true);
+        currentImageIndex++;
+        showImage();
+    });
+
+    noButton.addEventListener('click', () => {
+        userResponses.push(false);
+        currentImageIndex++;
+        showImage();
+    });
+
+    // Hide quiz screens initially
+    document.getElementById('quiz-screen').style.display = 'none';
+    document.getElementById('finished-screen').style.display = 'none';
+});
 
 // Start the quiz after entering the name
 function startQuiz() {
@@ -33,7 +70,6 @@ function startQuiz() {
 // Show current image
 function showImage() {
     if (currentImageIndex >= images.length) {
-        // If all images are shown, show finished screen
         document.getElementById('quiz-screen').style.display = 'none';
         document.getElementById('finished-screen').style.display = 'block';
         submitData();  // Submit data once quiz is finished
@@ -43,23 +79,10 @@ function showImage() {
     document.getElementById('image').src = images[currentImageIndex];
 }
 
-// Handle user answer
-document.getElementById('yesButton').addEventListener('click', () => {
-    userResponses.push(true);  // 'Yes' is true
-    currentImageIndex++;  // Move to next image
-    showImage();
-});
-
-document.getElementById('noButton').addEventListener('click', () => {
-    userResponses.push(false); // 'No' is false
-    currentImageIndex++;  // Move to next image
-    showImage();
-});
-
 // Function to submit the data when the user finishes
 async function submitData() {
     const { data, error } = await supabase
-        .from('userdata')  // Ensure 'responses' is your table name in Supabase
+        .from('userdata')
         .insert([
             {
                 name: userName,

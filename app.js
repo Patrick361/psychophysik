@@ -108,13 +108,5 @@ async function submitData() {
                 time: timeDifference, 
             },
         ]);
-
-    if (error) {
-        console.error('Error inserting data:', error);
-        alert('Hat geklappt');
-    } else {
-        console.log('Data submitted successfully:', data);
-        alert('Fehler');
-    }
 }
 

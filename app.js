@@ -105,7 +105,7 @@ async function submitData() {
             {
                 name: userName,
                 responses: userResponses,  // The responses as an array of booleans
-                time: timeDifference  // Add timestamp
+                time: timeDifference 
             },
         ]);
 

@@ -66,7 +66,7 @@ function startQuiz() {
         alert('Please enter your name');
         return;
     }
-    startTime = new Date();
+    const startTime = new Date();
 
 
     // Hide start screen, show quiz screen
@@ -99,14 +99,13 @@ async function submitData() {
     
     const timeDifference = endTime - startTime;
 
-    const timeInSeconds = timeDifference / 1000;
     const { data, error } = await supabase
         .from('userdata')  // Ensure 'userdata' is your table name in Supabase
         .insert([
             {
                 name: userName,
                 responses: userResponses,  // The responses as an array of booleans
-                time: timeInSeconds  // Add timestamp
+                time: timeDifference  // Add timestamp
             },
         ]);
 

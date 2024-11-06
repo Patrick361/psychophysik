@@ -105,10 +105,10 @@ async function submitData() {
 
     if (error) {
         console.error('Error inserting data:', error);
-        alert('There was an error submitting your data.');
+        alert('Hat geklappt');
     } else {
         console.log('Data submitted successfully:', data);
-        alert('Your responses have been submitted successfully!');
+        alert('Fehler');
     }
 }
 

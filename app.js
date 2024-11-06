@@ -46,3 +46,40 @@ function answer(answer) {
     currentImageIndex++;
     showImage();
 }
+
+
+
+const SUPABASE_URL = "https://jwzireinruhcwgrtbaob.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3emlyZWlucnVoY3dncnRiYW9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA4OTMxODUsImV4cCI6MjA0NjQ2OTE4NX0.U8bWL8LEA38Nxr1D50d84F0gZ2_rT9fdlHPBGFXd7O0";
+
+// Initialize Supabase client
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+async function storeUserData(name, answerData) {
+    // Store data in the Supabase database
+    const { data, error } = await supabase
+        .from('user_data')
+        .insert([
+            {
+                name: name,
+                answer: JSON.stringify(answerData),  // You can store the answers as JSON if needed
+                timestamp: new Date()
+            }
+        ]);
+
+    if (error) {
+        console.error("Error storing data:", error);
+    } else {
+        console.log("User data stored:", data);
+    }
+}
+
+// Call this when quiz is finished
+function finishQuiz() {
+    const userData = {
+        name: userName,
+        answers: userAnswers // Store user answers (e.g., array or object of answers)
+    };
+    storeUserData(userData.name, userData.answers);
+}
+

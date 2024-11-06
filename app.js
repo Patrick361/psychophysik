@@ -18,7 +18,7 @@ const images = [
     'LightAndSquare0105.png',
 ];
 
-
+let startTime, endTime;
 
 // Wait for the DOM to be fully loaded before executing the script
 document.addEventListener('DOMContentLoaded', () => {
@@ -66,7 +66,7 @@ function startQuiz() {
         alert('Please enter your name');
         return;
     }
-    const startTime = new Date();
+    startTime = new Date();
 
 
     // Hide start screen, show quiz screen
@@ -95,7 +95,7 @@ function showImage() {
 
 // Function to submit the data when the user finishes
 async function submitData() {
-    const endTime = new Date();
+    endTime = new Date();
     
     const timeDifference = endTime - startTime;
 

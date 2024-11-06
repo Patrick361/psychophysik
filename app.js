@@ -57,27 +57,27 @@ const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Assume you have a form that captures the user's name and the answers to the images
 const userName = document.getElementById('nameInput').value;
-const userResponses = [];  // This should capture yes/no answers for each image
+let userResponses = [];  // This will store the user's boolean answers
 
 // Add event listeners for the buttons to capture responses
 document.getElementById('yesButton').addEventListener('click', () => {
-  userResponses.push('yes');
+  userResponses.push(true);  // 'Yes' is true
   nextImage();
 });
 
 document.getElementById('noButton').addEventListener('click', () => {
-  userResponses.push('no');
+  userResponses.push(false); // 'No' is false
   nextImage();
 });
 
-// After form submission or when the user finishes
+// Function to submit the data when the user finishes
 async function submitData() {
   const { data, error } = await supabase
     .from('responses')  // Ensure 'responses' is your table name in Supabase
     .insert([
       {
         name: userName,
-        responses: userResponses,  // Or other relevant data
+        responses: userResponses,  // The responses as an array of booleans
       },
     ]);
 

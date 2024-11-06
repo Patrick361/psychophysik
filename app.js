@@ -12,10 +12,37 @@ let userName = '';  // Global variable for user name
 let currentImageIndex = 0; // Image index tracker
 let userResponses = [];  // Store the user's boolean answers
 const images = [
-    'LightAndSquare0121.png',
-    'LightAndSquare0114.png',
+    'LightAndSquare0097.png',
+    'LightAndSquare0151.png',
+    'LightAndSquare0055.png',
+    'LightAndSquare0064.png',
+    'LightAndSquare0036.png',
     'LightAndSquare0109.png',
+    'LightAndSquare0101.png',
+    'LightAndSquare0114.png',
+    'LightAndSquare0077.png',
+    'LightAndSquare0018.png',
+    'LightAndSquare0052.png',
+    'LightAndSquare0115.png',
+    'LightAndSquare0121.png',
+    'LightAndSquare0039.png',
+    'LightAndSquare0074.png',
+    'LightAndSquare0180.png',
+    'LightAndSquare0161.png',
+    'LightAndSquare0188.png',
+    'LightAndSquare0020.png',
+    'LightAndSquare0083.png',
+    'LightAndSquare0122.png',
+    'LightAndSquare0044.png',
+    'LightAndSquare0120.png',
     'LightAndSquare0105.png',
+    'LightAndSquare0090.png',
+    'LightAndSquare0106.png',
+    'LightAndSquare0127.png',
+    'LightAndSquare0167.png',
+    'LightAndSquare0086.png',
+    'LightAndSquare0025.png',
+    'LightAndSquare0137.png'
 ];
 
 let startTime, endTime;

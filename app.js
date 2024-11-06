@@ -12,22 +12,41 @@ let userResponses = [];  // Store the user's boolean answers
 
 // Wait for the DOM to be fully loaded before executing the script
 document.addEventListener('DOMContentLoaded', () => {
-    // Start quiz function
-    const startButton = document.querySelector('button'); // Get the button that starts the quiz
-    startButton.addEventListener('click', startQuiz); // Attach event listener here
+    // Get the start button element and log it
+    const startButton = document.querySelector('button');
+    console.log('Start button:', startButton); // Log to check if the button is selected
+
+    if (startButton) {
+        startButton.addEventListener('click', startQuiz); // Attach event listener here
+    } else {
+        console.error('Start button not found!');
+    }
 
     // Attach event listeners to the buttons that handle the user responses
-    document.getElementById('yesButton').addEventListener('click', () => {
-        userResponses.push(true);  // 'Yes' is true
-        currentImageIndex++;  // Move to next image
-        showImage();
-    });
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    console.log('Yes button:', yesButton); // Log to check if the button is selected
+    console.log('No button:', noButton); // Log to check if the button is selected
 
-    document.getElementById('noButton').addEventListener('click', () => {
-        userResponses.push(false); // 'No' is false
-        currentImageIndex++;  // Move to next image
-        showImage();
-    });
+    if (yesButton) {
+        yesButton.addEventListener('click', () => {
+            userResponses.push(true);  // 'Yes' is true
+            currentImageIndex++;  // Move to next image
+            showImage();
+        });
+    } else {
+        console.error('Yes button not found!');
+    }
+
+    if (noButton) {
+        noButton.addEventListener('click', () => {
+            userResponses.push(false); // 'No' is false
+            currentImageIndex++;  // Move to next image
+            showImage();
+        });
+    } else {
+        console.error('No button not found!');
+    }
 });
 
 // Start the quiz after entering the name

@@ -55,31 +55,37 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 // Initialize Supabase client
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-async function storeUserData(name, answerData) {
-    // Store data in the Supabase database
-    const { data, error } = await supabase
-        .from('user_data')
-        .insert([
-            {
-                name: name,
-                answer: JSON.stringify(answerData),  // You can store the answers as JSON if needed
-                timestamp: new Date()
-            }
-        ]);
+// Assume you have a form that captures the user's name and the answers to the images
+const userName = document.getElementById('nameInput').value;
+const userResponses = [];  // This should capture yes/no answers for each image
 
-    if (error) {
-        console.error("Error storing data:", error);
-    } else {
-        console.log("User data stored:", data);
-    }
-}
+// Add event listeners for the buttons to capture responses
+document.getElementById('yesButton').addEventListener('click', () => {
+  userResponses.push('yes');
+  nextImage();
+});
 
-// Call this when quiz is finished
-function finishQuiz() {
-    const userData = {
+document.getElementById('noButton').addEventListener('click', () => {
+  userResponses.push('no');
+  nextImage();
+});
+
+// After form submission or when the user finishes
+async function submitData() {
+  const { data, error } = await supabase
+    .from('responses')  // Ensure 'responses' is your table name in Supabase
+    .insert([
+      {
         name: userName,
-        answers: userAnswers // Store user answers (e.g., array or object of answers)
-    };
-    storeUserData(userData.name, userData.answers);
+        responses: userResponses,  // Or other relevant data
+      },
+    ]);
+
+  if (error) {
+    console.error('Error inserting data:', error);
+  } else {
+    console.log('Data submitted successfully:', data);
+  }
 }
+
 

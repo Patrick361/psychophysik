@@ -19,6 +19,7 @@ const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";  // Replace with your actual
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Start the quiz after entering the name
+window.startQuiz = startQuiz;
 function startQuiz() {
     userName = document.getElementById('name-input').value;
     if (!userName) {

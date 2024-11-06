@@ -6,9 +6,19 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+
+
 let userName = '';  // Global variable for user name
 let currentImageIndex = 0; // Image index tracker
 let userResponses = [];  // Store the user's boolean answers
+const images = [
+    'LightAndSquare0121.png',
+    'LightAndSquare0114.png',
+    'LightAndSquare0109.png',
+    'LightAndSquare0105.png',
+];
+
+
 
 // Wait for the DOM to be fully loaded before executing the script
 document.addEventListener('DOMContentLoaded', () => {
@@ -68,13 +78,6 @@ function startQuiz() {
     showImage();
 }
 
-const images = [
-    'LightAndSquare0121.png',
-    'LightAndSquare0114.png',
-    'LightAndSquare0109.png',
-    'LightAndSquare0105.png',
-    // Add more images as needed
-];
 // Show current image
 function showImage() {
     if (currentImageIndex >= images.length) {

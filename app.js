@@ -1,7 +1,8 @@
 const images = [
-    'image1.jpg', // Replace with your image file paths
-    'image2.jpg',
-    'image3.jpg',
+    'LightAndSquare0121.png', // Replace with your image file paths
+    'LightAndSquare0114.png',
+    'LightAndSquare0109.png ',
+    'LightAndSquare0105.png',
     // Add more images as needed
 ];
 

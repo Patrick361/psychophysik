@@ -60,7 +60,7 @@ document.getElementById('noButton').addEventListener('click', () => {
 // Function to submit the data when the user finishes
 async function submitData() {
     const { data, error } = await supabase
-        .from('responses')  // Ensure 'responses' is your table name in Supabase
+        .from('userdata')  // Ensure 'responses' is your table name in Supabase
         .insert([
             {
                 name: userName,

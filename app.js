@@ -78,8 +78,8 @@ async function submitData() {
 }
 
 // Supabase initialization
-const SUPABASE_URL = "https://jwzireinruhcwgrtbaob.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3emlyZWlucnVoY3dncnRiYW9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA4OTMxODUsImV4cCI6MjA0NjQ2OTE4NX0.U8bWL8LEA38Nxr1D50d84F0gZ2_rT9fdlHPBGFXd7O0";
+const SUPABASE_URL = "https://rzmrgpjrsgilyzobxqgq.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6bXJncGpyc2dpbHl6b2J4cWdxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA5MTAyMjQsImV4cCI6MjA0NjQ4NjIyNH0.xL7o-2IqAbUUr7lpVOmNhUgXUMREtRa6q9gyWVb5i60";
 
 // Initialize Supabase client
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);

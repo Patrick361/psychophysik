@@ -4,11 +4,16 @@ const images = [
     'LightAndSquare0114.png',
     'LightAndSquare0109.png',
     'LightAndSquare0105.png',
-    // Add more images as needed
 ];
 
 let currentImageIndex = 0;
 let userName = '';  // Global variable for user name
+let userResponses = [];  // This will store the user's boolean answers
+
+// Initialize Supabase client
+const SUPABASE_URL = "https://rzmrgpjrsgilyzobxqgq.supabase.co";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";  // Replace with your actual key
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Start the quiz after entering the name
 function startQuiz() {
@@ -43,28 +48,27 @@ function showImage() {
 }
 
 // Handle user answer
-let userResponses = [];  // This will store the user's boolean answers
-
 document.getElementById('yesButton').addEventListener('click', () => {
     userResponses.push(true);  // 'Yes' is true
-    currentImageIndex++;  // Move to next image
+    currentImageIndex++;
     showImage();
 });
 
 document.getElementById('noButton').addEventListener('click', () => {
     userResponses.push(false); // 'No' is false
-    currentImageIndex++;  // Move to next image
+    currentImageIndex++;
     showImage();
 });
 
 // Function to submit the data when the user finishes
 async function submitData() {
     const { data, error } = await supabase
-        .from('userdata')  // Ensure 'responses' is your table name in Supabase
+        .from('userdata') 
         .insert([
             {
                 name: userName,
-                responses: userResponses,  // The responses as an array of booleans
+                responses: userResponses,  
+                time: new Date() 
             },
         ]);
 
@@ -76,10 +80,3 @@ async function submitData() {
         alert('Your responses have been submitted successfully!');
     }
 }
-
-// Supabase initialization
-const SUPABASE_URL = "https://rzmrgpjrsgilyzobxqgq.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6bXJncGpyc2dpbHl6b2J4cWdxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA5MTAyMjQsImV4cCI6MjA0NjQ4NjIyNH0.xL7o-2IqAbUUr7lpVOmNhUgXUMREtRa6q9gyWVb5i60";
-
-// Initialize Supabase client
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);

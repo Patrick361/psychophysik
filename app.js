@@ -66,6 +66,8 @@ function startQuiz() {
         alert('Please enter your name');
         return;
     }
+    startTime = new Date();
+
 
     // Hide start screen, show quiz screen
     document.getElementById('start-screen').style.display = 'none';
@@ -93,13 +95,18 @@ function showImage() {
 
 // Function to submit the data when the user finishes
 async function submitData() {
+    const endTime = new Date();
+    
+    const timeDifference = endTime - startTime;
+
+    const timeInSeconds = timeDifference / 1000;
     const { data, error } = await supabase
         .from('userdata')  // Ensure 'userdata' is your table name in Supabase
         .insert([
             {
                 name: userName,
                 responses: userResponses,  // The responses as an array of booleans
-                time: new Date()  // Add timestamp
+                time_difference: timeInSeconds  // Add timestamp
             },
         ]);
 

@@ -2,12 +2,9 @@ import createClient from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+es
 
 // Initialize Supabase client
 const SUPABASE_URL = "https://rzmrgpjrsgilyzobxqgq.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6bXJncGpyc2dpbHl6b2J4cWdxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA5MTAyMjQsImV4cCI6MjA0NjQ4NjIyNH0.xL7o-2IqAbUUr7lpVOmNhUgXUMREtRa6q9gyWVb5i60";  // Replace with your actual anon key
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6bXJncGpyc2dpbHl6b2J4cWdxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA5MTAyMjQsImV4cCI6MjA0NjQ4NjIyNH0.xL7o-2IqAbUUr7lpVOmNhUgXUMREtRa6q9gyWVb5i60"; 
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-// Check if supabase is initialized properly
-console.log(supabase);
 
 // Global variables
 let userName = '';  
@@ -69,6 +66,9 @@ function startQuiz() {
 
 // Show current image
 function showImage() {
+    // Placeholder for the images array
+    const images = ['image1.jpg', 'image2.jpg', 'image3.jpg']; // Define the actual image URLs here
+
     if (currentImageIndex >= images.length) {
         document.getElementById('quiz-screen').style.display = 'none';
         document.getElementById('finished-screen').style.display = 'block';

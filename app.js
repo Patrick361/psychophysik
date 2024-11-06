@@ -6,43 +6,28 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Global variables
-let userName = '';  
-let currentImageIndex = 0;
-let userResponses = [];
+let userName = '';  // Global variable for user name
+let currentImageIndex = 0; // Image index tracker
+let userResponses = [];  // Store the user's boolean answers
 
-// Wait until the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', function () {
-    // Get references to DOM elements
-    const startButton = document.getElementById('start-button');
-    const yesButton = document.getElementById('yesButton');
-    const noButton = document.getElementById('noButton');
+// Wait for the DOM to be fully loaded before executing the script
+document.addEventListener('DOMContentLoaded', () => {
+    // Start quiz function
+    const startButton = document.querySelector('button'); // Get the button that starts the quiz
+    startButton.addEventListener('click', startQuiz); // Attach event listener here
 
-    // Check if buttons exist
-    if (!startButton || !yesButton || !noButton) {
-        console.error('Button elements are missing');
-        return;
-    }
-
-    // Start quiz event listener
-    startButton.addEventListener('click', startQuiz);
-
-    // Answer event listeners
-    yesButton.addEventListener('click', () => {
-        userResponses.push(true);
-        currentImageIndex++;
+    // Attach event listeners to the buttons that handle the user responses
+    document.getElementById('yesButton').addEventListener('click', () => {
+        userResponses.push(true);  // 'Yes' is true
+        currentImageIndex++;  // Move to next image
         showImage();
     });
 
-    noButton.addEventListener('click', () => {
-        userResponses.push(false);
-        currentImageIndex++;
+    document.getElementById('noButton').addEventListener('click', () => {
+        userResponses.push(false); // 'No' is false
+        currentImageIndex++;  // Move to next image
         showImage();
     });
-
-    // Hide quiz screens initially
-    document.getElementById('quiz-screen').style.display = 'none';
-    document.getElementById('finished-screen').style.display = 'none';
 });
 
 // Start the quiz after entering the name
@@ -66,10 +51,8 @@ function startQuiz() {
 
 // Show current image
 function showImage() {
-    // Placeholder for the images array
-    const images = ['image1.jpg', 'image2.jpg', 'image3.jpg']; // Define the actual image URLs here
-
     if (currentImageIndex >= images.length) {
+        // If all images are shown, show finished screen
         document.getElementById('quiz-screen').style.display = 'none';
         document.getElementById('finished-screen').style.display = 'block';
         submitData();  // Submit data once quiz is finished
@@ -82,7 +65,7 @@ function showImage() {
 // Function to submit the data when the user finishes
 async function submitData() {
     const { data, error } = await supabase
-        .from('userdata')
+        .from('userdata')  // Ensure 'userdata' is your table name in Supabase
         .insert([
             {
                 name: userName,
@@ -99,3 +82,4 @@ async function submitData() {
         alert('Your responses have been submitted successfully!');
     }
 }
+

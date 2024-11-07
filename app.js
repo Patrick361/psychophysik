@@ -6,56 +6,27 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-
-
 let userName = '';  // Global variable for user name
 let currentImageIndex = 0; // Image index tracker
 let userResponses = [];  // Store the user's boolean answers
 const images = [
-    'LightAndSquare0097.png',
-    'LightAndSquare0151.png',
-    'LightAndSquare0055.png',
-    'LightAndSquare0064.png',
-    'LightAndSquare0036.png',
-    'LightAndSquare0109.png',
-    'LightAndSquare0101.png',
-    'LightAndSquare0114.png',
-    'LightAndSquare0077.png',
-    'LightAndSquare0018.png',
-    'LightAndSquare0052.png',
-    'LightAndSquare0115.png',
-    'LightAndSquare0121.png',
-    'LightAndSquare0039.png',
-    'LightAndSquare0074.png',
-    'LightAndSquare0180.png',
-    'LightAndSquare0161.png',
-    'LightAndSquare0188.png',
-    'LightAndSquare0020.png',
-    'LightAndSquare0083.png',
-    'LightAndSquare0122.png',
-    'LightAndSquare0044.png',
-    'LightAndSquare0120.png',
-    'LightAndSquare0105.png',
-    'LightAndSquare0090.png',
-    'LightAndSquare0106.png',
-    'LightAndSquare0127.png',
-    'LightAndSquare0167.png',
-    'LightAndSquare0086.png',
-    'LightAndSquare0025.png',
-    'LightAndSquare0137.png'
+    'LightAndSquare0097.png', 'LightAndSquare0151.png', 'LightAndSquare0055.png', 'LightAndSquare0064.png', 
+    'LightAndSquare0036.png', 'LightAndSquare0109.png', 'LightAndSquare0101.png', 'LightAndSquare0114.png', 
+    'LightAndSquare0077.png', 'LightAndSquare0018.png', 'LightAndSquare0052.png', 'LightAndSquare0115.png', 
+    'LightAndSquare0121.png', 'LightAndSquare0039.png', 'LightAndSquare0074.png', 'LightAndSquare0180.png', 
+    'LightAndSquare0161.png', 'LightAndSquare0188.png', 'LightAndSquare0020.png', 'LightAndSquare0083.png', 
+    'LightAndSquare0122.png', 'LightAndSquare0044.png', 'LightAndSquare0120.png', 'LightAndSquare0105.png', 
+    'LightAndSquare0090.png', 'LightAndSquare0106.png', 'LightAndSquare0127.png', 'LightAndSquare0167.png', 
+    'LightAndSquare0086.png', 'LightAndSquare0025.png', 'LightAndSquare0137.png'
 ];
-
 let startTime, endTime;
-const IMAGE_DELAY_MS = 220; //siehe Buch Seite 58
+const IMAGE_DELAY_MS = 220;  // Delay between images in milliseconds
 
 // Wait for the DOM to be fully loaded before executing the script
 document.addEventListener('DOMContentLoaded', () => {
-    // Get the start button element and log it
     const startButton = document.querySelector('button');
-    console.log('Start button:', startButton); // Log to check if the button is selected
-
     if (startButton) {
-        startButton.addEventListener('click', startQuiz); // Attach event listener here
+        startButton.addEventListener('click', startQuiz);
     } else {
         console.error('Start button not found!');
     }
@@ -63,29 +34,38 @@ document.addEventListener('DOMContentLoaded', () => {
     // Attach event listeners to the buttons that handle the user responses
     const yesButton = document.getElementById('yesButton');
     const noButton = document.getElementById('noButton');
-    console.log('Yes button:', yesButton); // Log to check if the button is selected
-    console.log('No button:', noButton); // Log to check if the button is selected
 
     if (yesButton) {
-        yesButton.addEventListener('click', () => {
-            userResponses.push(true);  // 'Yes' is true
-            currentImageIndex++;  // Move to next image
-            showImage();
-        });
+        yesButton.addEventListener('click', () => handleResponse(true));
     } else {
         console.error('Yes button not found!');
     }
 
     if (noButton) {
-        noButton.addEventListener('click', () => {
-            userResponses.push(false); // 'No' is false
-            currentImageIndex++;  // Move to next image
-            showImage();
-        });
+        noButton.addEventListener('click', () => handleResponse(false));
     } else {
         console.error('No button not found!');
     }
 });
+
+// Function to handle user responses and add delay
+function handleResponse(response) {
+    userResponses.push(response);  // Add the response
+    currentImageIndex++;  // Increment image index
+
+    // Disable buttons to prevent multiple clicks during delay
+    document.getElementById('yesButton').disabled = true;
+    document.getElementById('noButton').disabled = true;
+
+    // Delay before showing the next image
+    setTimeout(() => {
+        showImage();  // Show next image after delay
+
+        // Re-enable buttons after the delay
+        document.getElementById('yesButton').disabled = false;
+        document.getElementById('noButton').disabled = false;
+    }, IMAGE_DELAY_MS);
+}
 
 // Start the quiz after entering the name
 function startQuiz() {
@@ -95,7 +75,6 @@ function startQuiz() {
         return;
     }
     startTime = new Date();
-
 
     // Hide start screen, show quiz screen
     document.getElementById('start-screen').style.display = 'none';
@@ -120,18 +99,11 @@ function showImage() {
 
     // Set the current image source
     document.getElementById('image').src = images[currentImageIndex];
-
-    // Delay showing the next image by IMAGE_DELAY_MS
-    setTimeout(() => {
-        currentImageIndex++;  // Move to next image
-        showImage();  // Recursively call showImage
-    }, IMAGE_DELAY_MS);
 }
 
 // Function to submit the data when the user finishes
 async function submitData() {
     endTime = new Date();
-    
     const timeDifference = endTime - startTime;
 
     const { data, error } = await supabase
@@ -139,9 +111,14 @@ async function submitData() {
         .insert([
             {
                 name: userName,
-                responses: userResponses,  // The responses as an array of booleans
-                time: timeDifference, 
+                responses: userResponses,
+                time: timeDifference,
             },
         ]);
-}
 
+    if (error) {
+        console.error('Error submitting data:', error);
+    } else {
+        console.log('Data submitted successfully:', data);
+    }
+}

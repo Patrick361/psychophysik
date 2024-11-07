@@ -1,14 +1,13 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-// Initialize Supabase client
 const SUPABASE_URL = "https://rzmrgpjrsgilyzobxqgq.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6bXJncGpyc2dpbHl6b2J4cWdxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA5MTAyMjQsImV4cCI6MjA0NjQ4NjIyNH0.xL7o-2IqAbUUr7lpVOmNhUgXUMREtRa6q9gyWVb5i60"; 
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-let userName = '';  // Global variable for user name
-let currentImageIndex = 0; // Image index tracker
-let userResponses = [];  // Store the user's boolean answers
+let userName = ''; 
+let currentImageIndex = 0; 
+let userResponses = []; 
 const images = [
     'LightAndSquare0097.png', 'LightAndSquare0151.png', 'LightAndSquare0055.png', 'LightAndSquare0064.png', 
     'LightAndSquare0036.png', 'LightAndSquare0109.png', 'LightAndSquare0101.png', 'LightAndSquare0114.png', 
@@ -20,7 +19,7 @@ const images = [
     'LightAndSquare0086.png', 'LightAndSquare0025.png', 'LightAndSquare0137.png'
 ];
 let startTime, endTime;
-const IMAGE_DELAY_MS = 220;  // Delay between images in milliseconds
+const IMAGE_DELAY_MS = 220;  // Delay siehe Buch seite 54
 
 // Wait for the DOM to be fully loaded before executing the script
 document.addEventListener('DOMContentLoaded', () => {
@@ -48,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Function to handle user responses and add delay
 function handleResponse(response) {
     userResponses.push(response);  // Add the response
     currentImageIndex++;  // Increment image index
@@ -67,7 +65,6 @@ function handleResponse(response) {
     }, IMAGE_DELAY_MS);
 }
 
-// Start the quiz after entering the name
 function startQuiz() {
     userName = document.getElementById('name-input').value;
     if (!userName) {
@@ -87,7 +84,6 @@ function startQuiz() {
     showImage();
 }
 
-// Show current image
 function showImage() {
     if (currentImageIndex >= images.length) {
         // If all images are shown, show finished screen
@@ -116,9 +112,4 @@ async function submitData() {
             },
         ]);
 
-    if (error) {
-        console.error('Error submitting data:', error);
-    } else {
-        console.log('Data submitted successfully:', data);
-    }
 }

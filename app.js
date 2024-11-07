@@ -46,6 +46,7 @@ const images = [
 ];
 
 let startTime, endTime;
+const IMAGE_DELAY_MS = 220; //siehe Buch Seite 58
 
 // Wait for the DOM to be fully loaded before executing the script
 document.addEventListener('DOMContentLoaded', () => {
@@ -117,7 +118,14 @@ function showImage() {
         return;
     }
 
+    // Set the current image source
     document.getElementById('image').src = images[currentImageIndex];
+
+    // Delay showing the next image by IMAGE_DELAY_MS
+    setTimeout(() => {
+        currentImageIndex++;  // Move to next image
+        showImage();  // Recursively call showImage
+    }, IMAGE_DELAY_MS);
 }
 
 // Function to submit the data when the user finishes

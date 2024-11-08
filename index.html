@@ -15,7 +15,10 @@
 
     <div id="quiz-screen" class="screen" style="display: none;">
         <h2 id="user-name"></h2>
-        <img id="image" src="" alt="Image" width="300">
+        <!-- Image container added to support the white screen effect -->
+        <div id="image-container" style="background-color: transparent;">
+            <img id="image" src="" alt="Image" width="300">
+        </div>
         <div>
             <button id="yesButton">Ja</button>
             <button id="noButton">Nein</button>
@@ -25,6 +28,7 @@
     <div id="finished-screen" class="screen" style="display: none;">
         <h1>Glückwunsch, du bist fertig!</h1>
     </div>
+    
     <script type="module" src="app.js"></script>
 </body>
 </html>

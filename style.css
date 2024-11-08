@@ -12,10 +12,10 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f5f5f5;
+    background-color: #f0f0f0;
     color: #333;
     text-align: center;
-    padding: 10px;
+    padding: 20px;
 }
 
 /* Center each screen and add spacing */
@@ -28,16 +28,16 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Adjust font and spacing for heading */
+/* Styling for headings */
 h1, h2 {
     font-size: 1.5em;
     margin-bottom: 20px;
-    color: #444;
+    color: #333;
 }
 
-/* Styling for start-screen */
-#start-screen input[type="text"] {
-    width: 100%;
+/* Input styling */
+input[type="text"] {
+    width: 90%;
     padding: 10px;
     font-size: 1em;
     margin-top: 10px;
@@ -46,28 +46,30 @@ h1, h2 {
     margin-bottom: 15px;
 }
 
-/* Button styles */
+/* Button styling */
 button {
-    padding: 12px 20px;
+    padding: 10px 20px;
     font-size: 1em;
-    font-weight: bold;
     color: #fff;
     background-color: #007bff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin: 10px;
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
-/* Image styling */
-#quiz-screen img {
-    max-width: 100%;
+/* Image styling with responsive adjustments */
+img {
+    width: 100%;
     height: auto;
-    margin: 15px 0;
+    max-width: 1000px; /* Limits image size on larger screens */
+    margin-top: 20px;
+    border-radius: 5px;
 }
 
 /* Responsive button layout */
@@ -75,32 +77,36 @@ button:hover {
     display: flex;
     justify-content: space-around;
     gap: 10px;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
 }
 
-/* Finished screen styling */
-#finished-screen h1 {
-    font-size: 1.8em;
-    color: #28a745;
-}
-
-/* Responsive adjustments */
-@media (max-width: 600px) {
-    body {
-        padding: 0;
-        min-height: 100vh;
+/* Mobile and tablet adjustments */
+@media (max-width: 768px) {
+    h1, h2 {
+        font-size: 1.3em;
     }
 
+    input[type="text"], button {
+        width: 100%;
+        max-width: none; /* Remove button width constraints on smaller screens */
+    }
+
+    button {
+        font-size: 0.9em;
+    }
+
+    img {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
     h1, h2 {
         font-size: 1.2em;
     }
 
     button {
-        padding: 10px;
-        font-size: 0.9em;
-        width: 45%;
-    }
-
-    #start-screen input[type="text"] {
-        font-size: 0.9em;
+        padding: 8px 16px;
+        font-size: 0.85em;
     }
 }

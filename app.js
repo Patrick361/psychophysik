@@ -56,22 +56,28 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function handleResponse(response) {
-    userResponses.push(response);  // Add the response
-    currentImageIndex++;  // Increment image index
+    userResponses.push(response); 
+    currentImageIndex++;
 
-    // Disable buttons to prevent multiple clicks during delay
-    document.getElementById('yesButton').disabled = true;
-    document.getElementById('noButton').disabled = true;
+    //White screen
+    document.getElementById('image').style.display = 'none';
+    document.getElementById('yesButton').style.display = 'none';
+    document.getElementById('noButton').style.display = 'none';
+    document.getElementById('user-name').style.display = 'none';
 
     // Delay before showing the next image
     setTimeout(() => {
-        showImage();  // Show next image after delay
+        // Show the next image after the delay
+        showImage();
 
-        // Re-enable buttons after the delay
-        document.getElementById('yesButton').disabled = false;
-        document.getElementById('noButton').disabled = false;
+        // Re-enable and display buttons, image, and text after the delay
+        document.getElementById('image').style.display = 'block';
+        document.getElementById('yesButton').style.display = 'inline-block';
+        document.getElementById('noButton').style.display = 'inline-block';
+        document.getElementById('user-name').style.display = 'block';
     }, IMAGE_DELAY_MS);
 }
+
 
 function startQuiz() {
     userName = document.getElementById('name-input').value;

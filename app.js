@@ -59,29 +59,38 @@ function handleResponse(response) {
     userResponses.push(response);  // Add the response
     currentImageIndex++;  // Increment image index
 
-    // Preload the next image to reduce loading delay
-    if (currentImageIndex < images.length) {
-        const nextImage = new Image();
-        nextImage.src = images[currentImageIndex];
-    }
-
-    // Hide elements for the delay period to show a white screen
+    // Hide current image, buttons, and text immediately to show a white screen
     document.getElementById('image').style.display = 'none';
     document.getElementById('yesButton').style.display = 'none';
     document.getElementById('noButton').style.display = 'none';
     document.getElementById('user-name').style.display = 'none';
 
-    // Delay before showing the next image
-    setTimeout(() => {
-        showImage();  // Show next image after delay
+    // Preload the next image if there's another one to load
+    if (currentImageIndex < images.length) {
+        const nextImage = new Image();
+        nextImage.src = images[currentImageIndex];
+        nextImage.onload = () => {
+            // Wait for the delay period, then display the new image and UI elements
+            setTimeout(() => {
+                showImage();  // Show the preloaded next image
 
-        // Re-enable and display buttons, image, and text after the delay
-        document.getElementById('image').style.display = 'block';
-        document.getElementById('yesButton').style.display = 'inline-block';
-        document.getElementById('noButton').style.display = 'inline-block';
-        document.getElementById('user-name').style.display = 'block';
-    }, IMAGE_DELAY_MS);
+                // Re-enable and display buttons, image, and text after the delay
+                document.getElementById('image').style.display = 'block';
+                document.getElementById('yesButton').style.display = 'inline-block';
+                document.getElementById('noButton').style.display = 'inline-block';
+                document.getElementById('user-name').style.display = 'block';
+            }, IMAGE_DELAY_MS);
+        };
+    } else {
+        // If all images are shown, display the finished screen
+        setTimeout(() => {
+            document.getElementById('quiz-screen').style.display = 'none';
+            document.getElementById('finished-screen').style.display = 'block';
+            submitData();  // Submit data once the quiz is finished
+        }, IMAGE_DELAY_MS);
+    }
 }
+
 
 
 function startQuiz() {
@@ -104,15 +113,10 @@ function startQuiz() {
 }
 
 function showImage() {
-    if (currentImageIndex >= images.length) {
-        // If all images are shown, display the finished screen
-        document.getElementById('quiz-screen').style.display = 'none';
-        document.getElementById('finished-screen').style.display = 'block';
-        submitData();  // Submit data once the quiz is finished
-        return;
+    if (currentImageIndex < images.length) {
+        // Update the image source to the preloaded next image
+        document.getElementById('image').src = images[currentImageIndex];
     }
-
-    document.getElementById('image').src = images[currentImageIndex];
 }
 
 // Function to submit the data when the user finishes

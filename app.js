@@ -8,13 +8,13 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 let userName = ''; 
 let currentImageIndex = 0; 
 let userResponses = []; 
-const images = [];  // Clear the array to add images dynamically
+const images = [];  // Empty array to add images dynamically
 let startTime, endTime;
 const IMAGE_DELAY_MS = 220;  // Delay time in milliseconds
 
 // Wait for the DOM to be fully loaded before executing the script
-document.addEventListener('DOMContentLoaded', async () => {
-    await loadImages();  // Load images from the /pictures folder
+document.addEventListener('DOMContentLoaded', () => {
+    loadImages();  // Dynamically load images based on naming pattern
 
     const startButton = document.querySelector('button');
     if (startButton) {
@@ -40,14 +40,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-async function loadImages() {
-    // Fetch all images from /pictures directory using a server-side endpoint
-    try {
-        const response = await fetch('/get-images');  // Replace with actual server endpoint
-        const imagePaths = await response.json();
-        imagePaths.forEach(path => images.push(path));
-    } catch (error) {
-        console.error('Error loading images:', error);
+function loadImages() {
+    // Generate file names LightAndSquare_0001 to LightAndSquare_0060
+    for (let i = 1; i <= 60; i++) {
+        const imageNumber = String(i).padStart(4, '0');  // Pads with leading zeros
+        images.push(`LightAndSquare_${imageNumber}.png`);
     }
 }
 
@@ -65,10 +62,12 @@ function handleResponse(response) {
 
     // Delay before showing the next image
     setTimeout(() => {
+        // Reset background color to transparent
         imageContainer.style.backgroundColor = 'transparent';
         
-        showImage();  
+        showImage();  // Show next image after delay
 
+        // Re-enable buttons after the delay
         document.getElementById('yesButton').disabled = false;
         document.getElementById('noButton').disabled = false;
     }, IMAGE_DELAY_MS);
@@ -82,30 +81,37 @@ function startQuiz() {
     }
     startTime = new Date();
 
+    // Hide start screen, show quiz screen
     document.getElementById('start-screen').style.display = 'none';
     document.getElementById('quiz-screen').style.display = 'block';
 
+    // Display the user's name on quiz screen
     document.getElementById('user-name').textContent = `Ist ein Kontrastunterschied zu erkennen?!`;
+
+    // Show the first image
     showImage();
 }
 
 function showImage() {
     if (currentImageIndex >= images.length) {
+        // If all images are shown, show finished screen
         document.getElementById('quiz-screen').style.display = 'none';
         document.getElementById('finished-screen').style.display = 'block';
-        submitData();  
+        submitData();  // Submit data once quiz is finished
         return;
     }
 
-    document.getElementById('image').src = `/pictures/${images[currentImageIndex]}`;
+    // Set the current image source
+    document.getElementById('image').src = `final-pictures/${images[currentImageIndex]}`;
 }
 
+// Function to submit the data when the user finishes
 async function submitData() {
     endTime = new Date();
     const timeDifference = endTime - startTime;
 
     const { data, error } = await supabase
-        .from('userdata')
+        .from('userdata')  // Ensure 'userdata' is your table name in Supabase
         .insert([
             {
                 name: userName,
@@ -113,5 +119,4 @@ async function submitData() {
                 time: timeDifference,
             },
         ]);
-
 }

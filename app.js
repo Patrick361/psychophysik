@@ -4,11 +4,22 @@ let userName = '';
 let currentImageIndex = 0; 
 let userResponses = []; 
 
-const images = [];
-for (let i = 1; i <= 60; i++) {
-    const fileName = `LightAndSquare_${String(i).padStart(4, '0')}.png`;
-    images.push(fileName);
-}
+const images = [
+    'final-pictures/LightAndSquare_0001.png', 'final-pictures/LightAndSquare_0002.png', 'final-pictures/LightAndSquare_0003.png', 'final-pictures/LightAndSquare_0004.png', 'final-pictures/LightAndSquare_0005.png', 
+    'final-pictures/LightAndSquare_0006.png', 'final-pictures/LightAndSquare_0007.png', 'final-pictures/LightAndSquare_0008.png', 'final-pictures/LightAndSquare_0009.png', 'final-pictures/LightAndSquare_0010.png', 
+    'final-pictures/LightAndSquare_0011.png', 'final-pictures/LightAndSquare_0012.png', 'final-pictures/LightAndSquare_0013.png', 'final-pictures/LightAndSquare_0014.png', 'final-pictures/LightAndSquare_0015.png', 
+    'final-pictures/LightAndSquare_0016.png', 'final-pictures/LightAndSquare_0017.png', 'final-pictures/LightAndSquare_0018.png', 'final-pictures/LightAndSquare_0019.png', 'final-pictures/LightAndSquare_0020.png', 
+    'final-pictures/LightAndSquare_0021.png', 'final-pictures/LightAndSquare_0022.png', 'final-pictures/LightAndSquare_0023.png', 'final-pictures/LightAndSquare_0024.png', 'final-pictures/LightAndSquare_0025.png', 
+    'final-pictures/LightAndSquare_0026.png', 'final-pictures/LightAndSquare_0027.png', 'final-pictures/LightAndSquare_0028.png', 'final-pictures/LightAndSquare_0029.png', 'final-pictures/LightAndSquare_0030.png', 
+    'final-pictures/LightAndSquare_0031.png', 'final-pictures/LightAndSquare_0032.png', 'final-pictures/LightAndSquare_0033.png', 'final-pictures/LightAndSquare_0034.png', 'final-pictures/LightAndSquare_0035.png', 
+    'final-pictures/LightAndSquare_0036.png', 'final-pictures/LightAndSquare_0037.png', 'final-pictures/LightAndSquare_0038.png', 'final-pictures/LightAndSquare_0039.png', 'final-pictures/LightAndSquare_0040.png', 
+    'final-pictures/LightAndSquare_0041.png', 'final-pictures/LightAndSquare_0042.png', 'final-pictures/LightAndSquare_0043.png', 'final-pictures/LightAndSquare_0044.png', 'final-pictures/LightAndSquare_0045.png', 
+    'final-pictures/LightAndSquare_0046.png', 'final-pictures/LightAndSquare_0047.png', 'final-pictures/LightAndSquare_0048.png', 'final-pictures/LightAndSquare_0049.png', 'final-pictures/LightAndSquare_0050.png', 
+    'final-pictures/LightAndSquare_0051.png', 'final-pictures/LightAndSquare_0052.png', 'final-pictures/LightAndSquare_0053.png', 'final-pictures/LightAndSquare_0054.png', 'final-pictures/LightAndSquare_0055.png', 
+    'final-pictures/LightAndSquare_0056.png', 'final-pictures/LightAndSquare_0057.png', 'final-pictures/LightAndSquare_0058.png', 'final-pictures/LightAndSquare_0059.png', 'final-pictures/LightAndSquare_0060.png'
+];
+
+
 
 let startTime, endTime;
 const IMAGE_DELAY_MS = 220;  // Delay siehe Buch seite 54

@@ -46,7 +46,7 @@ input[type="text"] {
     margin-bottom: 15px;
 }
 
-/* Button styling */
+/* Original Button Styling - kept as requested */
 button {
     padding: 10px 20px;
     font-size: 1em;
@@ -75,7 +75,7 @@ img {
 /* Responsive button layout */
 #quiz-screen div {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     gap: 10px;
     flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
 }
@@ -92,7 +92,8 @@ img {
     }
 
     button {
-        font-size: 0.9em;
+        font-size: 1em;
+        padding: 10px 20px; /* Maintain button padding */
     }
 
     img {
@@ -106,7 +107,7 @@ img {
     }
 
     button {
-        padding: 8px 16px;
-        font-size: 0.85em;
+        font-size: 1em;
+        padding: 10px 20px; /* Keep button padding consistent */
     }
 }

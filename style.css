@@ -1,29 +1,106 @@
+/* Basic reset for margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General styling for body */
 body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
-    margin: 0;
-}
-
-.screen {
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    color: #333;
     text-align: center;
-}
-
-input {
     padding: 10px;
-    margin: 10px;
 }
 
+/* Center each screen and add spacing */
+.screen {
+    max-width: 500px;
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Adjust font and spacing for heading */
+h1, h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+/* Styling for start-screen */
+#start-screen input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+/* Button styles */
 button {
-    padding: 10px 20px;
-    margin: 10px;
+    padding: 12px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-img {
-    width: 1000px;
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Image styling */
+#quiz-screen img {
+    max-width: 100%;
     height: auto;
-    margin-top: 20px;
+    margin: 15px 0;
+}
+
+/* Responsive button layout */
+#quiz-screen div {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+/* Finished screen styling */
+#finished-screen h1 {
+    font-size: 1.8em;
+    color: #28a745;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    body {
+        padding: 0;
+        min-height: 100vh;
+    }
+
+    h1, h2 {
+        font-size: 1.2em;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 0.9em;
+        width: 45%;
+    }
+
+    #start-screen input[type="text"] {
+        font-size: 0.9em;
+    }
 }

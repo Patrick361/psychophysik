@@ -1,113 +1,68 @@
-/* Basic reset for margin and padding */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* General styling for body */
 body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 100vh; /* Use min-height to allow for smaller screens */
     background-color: #f0f0f0;
-    color: #333;
-    text-align: center;
-    padding: 20px;
+    margin: 0;
 }
 
-/* Center each screen and add spacing */
 .screen {
-    max-width: 500px;
+    text-align: center;
     width: 100%;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Styling for headings */
-h1, h2 {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-/* Input styling */
-input[type="text"] {
-    width: 90%;
+    max-width: 500px; /* Limit screen width for better readability on larger screens */
     padding: 10px;
-    font-size: 1em;
-    margin-top: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 15px;
 }
 
-/* Original Button Styling - kept as requested */
+input {
+    padding: 10px;
+    margin: 10px;
+    width: 90%; /* Full-width input for better usability on mobile */
+    max-width: 400px; /* Restrict max width on larger screens */
+}
+
 button {
     padding: 10px 20px;
-    font-size: 1em;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
     margin: 10px;
 }
 
-button:hover {
-    background-color: #0056b3;
-}
-
-/* Image styling with responsive adjustments */
+/* Responsive image adjustment */
 img {
     width: 100%;
     height: auto;
-    max-width: 1000px; /* Limits image size on larger screens */
+    max-width: 1000px;
     margin-top: 20px;
-    border-radius: 5px;
 }
 
-/* Responsive button layout */
-#quiz-screen div {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
-}
-
-/* Mobile and tablet adjustments */
+/* Adjustments for mobile and tablet screens */
 @media (max-width: 768px) {
-    h1, h2 {
-        font-size: 1.3em;
+    .screen {
+        max-width: 90%; /* Increase screen width on tablets */
+        padding: 10px;
     }
 
-    input[type="text"], button {
-        width: 100%;
-        max-width: none; /* Remove button width constraints on smaller screens */
-    }
-
-    button {
-        font-size: 1em;
-        padding: 10px 20px; /* Maintain button padding */
+    input, button {
+        width: 100%; /* Full width for inputs and buttons on tablets */
+        max-width: none;
     }
 
     img {
-        max-width: 100%;
+        max-width: 100%; /* Allow images to fit screen width */
     }
 }
 
 @media (max-width: 480px) {
-    h1, h2 {
-        font-size: 1.2em;
+    .screen {
+        max-width: 100%; /* Full width on smaller mobile screens */
+        padding: 10px;
     }
 
-    button {
-        font-size: 1em;
-        padding: 10px 20px; /* Keep button padding consistent */
+    input, button {
+        width: 100%; /* Full width for smaller mobile screens */
+    }
+
+    img {
+        max-width: 100%;
     }
 }

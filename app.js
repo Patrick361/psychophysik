@@ -52,6 +52,12 @@ function handleResponse(response) {
     userResponses.push(response);  // Add the response
     currentImageIndex++;  // Increment image index
 
+    // Ensure the image index is within range
+    if (currentImageIndex >= images.length) {
+        finishQuiz();
+        return;
+    }
+
     // Disable buttons to prevent multiple clicks during delay
     document.getElementById('yesButton').disabled = true;
     document.getElementById('noButton').disabled = true;
@@ -93,16 +99,20 @@ function startQuiz() {
 }
 
 function showImage() {
-    if (currentImageIndex >= images.length) {
-        // If all images are shown, show finished screen
-        document.getElementById('quiz-screen').style.display = 'none';
-        document.getElementById('finished-screen').style.display = 'block';
-        submitData();  // Submit data once quiz is finished
-        return;
+    // Ensure image index is within range before showing
+    if (currentImageIndex < images.length) {
+        // Set the current image source
+        document.getElementById('image').src = `final-pictures/${images[currentImageIndex]}`;
+    } else {
+        finishQuiz();
     }
+}
 
-    // Set the current image source
-    document.getElementById('image').src = `final-pictures/${images[currentImageIndex]}`;
+function finishQuiz() {
+    // Show finished screen and hide quiz screen
+    document.getElementById('quiz-screen').style.display = 'none';
+    document.getElementById('finished-screen').style.display = 'block';
+    submitData();  // Submit data once quiz is finished
 }
 
 // Function to submit the data when the user finishes
@@ -119,4 +129,10 @@ async function submitData() {
                 time: timeDifference,
             },
         ]);
+
+    if (error) {
+        console.error('Error inserting data:', error);
+    } else {
+        console.log('Data successfully submitted:', data);
+    }
 }

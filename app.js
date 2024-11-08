@@ -1,4 +1,4 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
 const SUPABASE_URL = "https://rzmrgpjrsgilyzobxqgq.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6bXJncGpyc2dpbHl6b2J4cWdxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA5MTAyMjQsImV4cCI6MjA0NjQ4NjIyNH0.xL7o-2IqAbUUr7lpVOmNhUgXUMREtRa6q9gyWVb5i60"; 
@@ -8,21 +8,14 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 let userName = ''; 
 let currentImageIndex = 0; 
 let userResponses = []; 
-const images = [
-    'LightAndSquare0097.png', 'LightAndSquare0151.png', 'LightAndSquare0055.png', 'LightAndSquare0064.png', 
-    'LightAndSquare0036.png', 'LightAndSquare0109.png', 'LightAndSquare0101.png', 'LightAndSquare0114.png', 
-    'LightAndSquare0077.png', 'LightAndSquare0018.png', 'LightAndSquare0052.png', 'LightAndSquare0115.png', 
-    'LightAndSquare0121.png', 'LightAndSquare0039.png', 'LightAndSquare0074.png', 'LightAndSquare0180.png', 
-    'LightAndSquare0161.png', 'LightAndSquare0188.png', 'LightAndSquare0020.png', 'LightAndSquare0083.png', 
-    'LightAndSquare0122.png', 'LightAndSquare0044.png', 'LightAndSquare0120.png', 'LightAndSquare0105.png', 
-    'LightAndSquare0090.png', 'LightAndSquare0106.png', 'LightAndSquare0127.png', 'LightAndSquare0167.png', 
-    'LightAndSquare0086.png', 'LightAndSquare0025.png', 'LightAndSquare0137.png'
-];
+const images = [];  // Clear the array to add images dynamically
 let startTime, endTime;
-const IMAGE_DELAY_MS = 220;  // Delay siehe Buch seite 54
+const IMAGE_DELAY_MS = 220;  // Delay time in milliseconds
 
 // Wait for the DOM to be fully loaded before executing the script
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadImages();  // Load images from the /pictures folder
+
     const startButton = document.querySelector('button');
     if (startButton) {
         startButton.addEventListener('click', startQuiz);
@@ -47,6 +40,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+async function loadImages() {
+    // Fetch all images from /pictures directory using a server-side endpoint
+    try {
+        const response = await fetch('/get-images');  // Replace with actual server endpoint
+        const imagePaths = await response.json();
+        imagePaths.forEach(path => images.push(path));
+    } catch (error) {
+        console.error('Error loading images:', error);
+    }
+}
+
 function handleResponse(response) {
     userResponses.push(response);  // Add the response
     currentImageIndex++;  // Increment image index
@@ -55,11 +59,16 @@ function handleResponse(response) {
     document.getElementById('yesButton').disabled = true;
     document.getElementById('noButton').disabled = true;
 
+    // Display white screen during delay
+    const imageContainer = document.getElementById('image-container');
+    imageContainer.style.backgroundColor = 'white';
+
     // Delay before showing the next image
     setTimeout(() => {
-        showImage();  // Show next image after delay
+        imageContainer.style.backgroundColor = 'transparent';
+        
+        showImage();  
 
-        // Re-enable buttons after the delay
         document.getElementById('yesButton').disabled = false;
         document.getElementById('noButton').disabled = false;
     }, IMAGE_DELAY_MS);
@@ -73,37 +82,30 @@ function startQuiz() {
     }
     startTime = new Date();
 
-    // Hide start screen, show quiz screen
     document.getElementById('start-screen').style.display = 'none';
     document.getElementById('quiz-screen').style.display = 'block';
 
-    // Display the user's name on quiz screen
     document.getElementById('user-name').textContent = `Ist ein Kontrastunterschied zu erkennen?!`;
-
-    // Show the first image
     showImage();
 }
 
 function showImage() {
     if (currentImageIndex >= images.length) {
-        // If all images are shown, show finished screen
         document.getElementById('quiz-screen').style.display = 'none';
         document.getElementById('finished-screen').style.display = 'block';
-        submitData();  // Submit data once quiz is finished
+        submitData();  
         return;
     }
 
-    // Set the current image source
-    document.getElementById('image').src = images[currentImageIndex];
+    document.getElementById('image').src = `/pictures/${images[currentImageIndex]}`;
 }
 
-// Function to submit the data when the user finishes
 async function submitData() {
     endTime = new Date();
     const timeDifference = endTime - startTime;
 
     const { data, error } = await supabase
-        .from('userdata')  // Ensure 'userdata' is your table name in Supabase
+        .from('userdata')
         .insert([
             {
                 name: userName,

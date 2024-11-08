@@ -56,10 +56,16 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function handleResponse(response) {
-    userResponses.push(response); 
-    currentImageIndex++;
+    userResponses.push(response);  // Add the response
+    currentImageIndex++;  // Increment image index
 
-    //White screen
+    // Preload the next image to reduce loading delay
+    if (currentImageIndex < images.length) {
+        const nextImage = new Image();
+        nextImage.src = images[currentImageIndex];
+    }
+
+    // Hide elements for the delay period to show a white screen
     document.getElementById('image').style.display = 'none';
     document.getElementById('yesButton').style.display = 'none';
     document.getElementById('noButton').style.display = 'none';
@@ -67,8 +73,7 @@ function handleResponse(response) {
 
     // Delay before showing the next image
     setTimeout(() => {
-        // Show the next image after the delay
-        showImage();
+        showImage();  // Show next image after delay
 
         // Re-enable and display buttons, image, and text after the delay
         document.getElementById('image').style.display = 'block';
@@ -100,14 +105,13 @@ function startQuiz() {
 
 function showImage() {
     if (currentImageIndex >= images.length) {
-        // If all images are shown, show finished screen
+        // If all images are shown, display the finished screen
         document.getElementById('quiz-screen').style.display = 'none';
         document.getElementById('finished-screen').style.display = 'block';
-        submitData();  // Submit data once quiz is finished
+        submitData();  // Submit data once the quiz is finished
         return;
     }
 
-    // Set the current image source
     document.getElementById('image').src = images[currentImageIndex];
 }
 

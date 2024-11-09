@@ -106,7 +106,7 @@ function startQuiz() {
     document.getElementById('quiz-screen').style.display = 'block';
 
     // Display the user's name on quiz screen
-    document.getElementById('user-name').textContent = 'Ist ein Kontrastunterschied zu erkennen?!';
+    document.getElementById('user-name').textContent = 'Ist der Kreis zu erkennen?';
 
     // Show the first image
     showImage();
